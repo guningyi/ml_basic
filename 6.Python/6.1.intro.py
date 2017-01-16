@@ -51,6 +51,7 @@ if __name__ == "__main__":
     # a = np.arange(0, 60, 10).reshape((-1, 1)) + np.arange(6)
     # print a
 
+
     # 正式开始  -:)
     # 标准Python的列表(list)中，元素本质是对象。
     # 如：L = [1, 2, 3]，需要3个指针和三个整数对象，对于数值运算比较浪费内存和CPU。
@@ -127,8 +128,12 @@ if __name__ == "__main__":
     # # #
     # # 和linspace类似，logspace可以创建等比数列
     # # 下面函数创建起始值为10^1，终止值为10^2，有20个数的等比数列
-    # d = np.logspace(1, 2, 10, endpoint=True)
-    # print d
+     d = np.logspace(1, 2, 10, endpoint=True)
+     print d
+
+     # logsapce 的参数，从左到右依次， 起始值，终止值，等份数，底数，如不设置为默认为0， 是否包含尾边界
+     e = np.logspace(1,2,100,base = 2, endpoint=True)
+     print e
     # # #
     # # # 下面创建起始值为2^0，终止值为2^10(包括)，有10个数的等比数列
     # f = np.logspace(0, 10, 11, endpoint=True, base=2)
@@ -286,8 +291,8 @@ if __name__ == "__main__":
     # plt.grid(True)
     # plt.show()
 
-    mpl.rcParams['font.sans-serif'] = [u'SimHei']  #FangSong/黑体 FangSong/KaiTi
-    mpl.rcParams['axes.unicode_minus'] = False
+    #mpl.rcParams['font.sans-serif'] = [u'SimHei']  #FangSong/黑体 FangSong/KaiTi
+    #mpl.rcParams['axes.unicode_minus'] = False
 
     # # 5.2 损失函数：Logistic损失(-1,1)/SVM Hinge损失/ 0/1损失
     # x = np.array(np.linspace(start=-2, stop=3, num=1001, dtype=np.float))
