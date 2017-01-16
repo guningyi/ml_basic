@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
-    stock_max, stock_min, stock_close, stock_amount = np.loadtxt('7.SH600000.txt', delimiter='\t', skiprows=2, usecols=(2, 3, 4, 5), unpack=True)
+    stock_max, stock_min, stock_close, stock_amount = np.loadtxt('7.SH600000.txt', delimiter='\t', skiprows=2, usecols=(2, 3, 4, 5), unpack=True)  #也可以用pandas来读取
     N = 100
     stock_close = stock_close[:N]
     print stock_close
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     stock_ema = np.convolve(stock_close, weight, mode='valid')  # exponential moving average
 
     t = np.arange(n-1, N)
-    poly = np.polyfit(t, stock_ema, 10)
+    poly = np.polyfit(t, stock_ema, 10)#做10阶多项式拟合
     print poly
     stock_ema_hat = np.polyval(poly, t)
 

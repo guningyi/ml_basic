@@ -28,10 +28,10 @@ def triangle_wave2(size, T):
     x, y = sawtooth_wave(size, T)
     return x, np.abs(y)
 
-
+#显示非0的数据
 def non_zero(f):
-    f1 = np.real(f)
-    f2 = np.imag(f)
+    f1 = np.real(f)  #实部
+    f2 = np.imag(f)  #虚部
     eps = 1e-4
     return f1[(f1 > eps) | (f1 < -eps)], f2[(f2 > eps) | (f2 < -eps)]
 
@@ -83,15 +83,15 @@ if __name__ == "__main__":
 
     # np.real_if_close
     f_real = np.real(f)
-    eps = 0.3 * f_real.max()
+    eps = 0.3 * f_real.max()  #实部的最大值乘0.3，将其设置为eps
     print eps
-    f_real[(f_real < eps) & (f_real > -eps)] = 0
+    f_real[(f_real < eps) & (f_real > -eps)] = 0 #做滤波
     f_imag = np.imag(f)
     eps = 0.3 * f_imag.max()
     print eps
     f_imag[(f_imag < eps) & (f_imag > -eps)] = 0
     f1 = f_real + f_imag * 1j
-    y1 = np.fft.ifft(f1)
+    y1 = np.fft.ifft(f1)  #做逆傅里叶变换，恢复原来的波形，但因为上面做了一个滤波操作，所以这恢复的波形和原始波形稍微有些不同。
     y1 = np.real(y1)
     # print '恢复频域信号：', np.real(f1), np.imag(f1)
     print '恢复频域信号：', non_zero(f1)
