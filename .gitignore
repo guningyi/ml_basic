@@ -3,6 +3,7 @@
 *.jpeg
 *.PNG
 *.txt
-
+*.csv
+*.data
 
 
