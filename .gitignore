@@ -5,5 +5,9 @@
 *.txt
 *.csv
 *.data
+*.msi
+*.dot
+*.pdf
+
 
 
