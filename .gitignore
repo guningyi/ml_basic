@@ -8,6 +8,8 @@
 *.msi
 *.dot
 *.pdf
-
+*.names
+*.tes
+*.tra
 
 
