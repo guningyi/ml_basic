@@ -12,5 +12,8 @@
 *.tes
 *.tra
 *.model
+*.tokens
+*.titles
+*.ldac
 
 
