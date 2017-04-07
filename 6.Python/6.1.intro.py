@@ -51,6 +51,33 @@ if __name__ == "__main__":
     # a = np.arange(0, 60, 10).reshape((-1, 1)) + np.arange(6)
     # print a
 
+    # a = np.arange(0,60,10)
+    # print a
+    #
+    # b = a.reshape(-1,1)
+    # print b
+    #
+    # c = np.arange(6)
+    # print 'c is:'
+    # print c
+    #
+    # d = a + c
+    # print 'a+c is:'
+    # print d
+    #
+    # 注意这里的list 不是Numpy中的arange
+    # e = [0]
+    # f = [1,2]
+    #
+    # print "e+f is:"
+    # print e+f # 结果是[1,2,3]
+
+    #g = [1]
+    #h = [2 3] 定义错误，没有这种格式的定义
+    #h=[[2]
+    #   [3]]  这种定义也是错误的
+    #h = [[2],[3]] 普通的python 数组必须是用这样的方式去定义
+
 
     # 正式开始  -:)
     # 标准Python的列表(list)中，元素本质是对象。
@@ -59,147 +86,147 @@ if __name__ == "__main__":
 
     # # 1.使用array创建
     # 通过array函数传递list对象
-    # L = [1, 2, 3, 4, 5, 6]
-    # print "L = ", L
-    # a = np.array(L)
-    # print "a = ", a
-    # print type(a)
+    L = [1, 2, 3, 4, 5, 6]
+    print "L = ", L
+    a = np.array(L)
+    print "a = ", a
+    print type(a)
     # # # 若传递的是多层嵌套的list，将创建多维数组
-    # b = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
-    # print b
+    b = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+    print b
     # # #
     # # # # 数组大小可以通过其shape属性获得
-    # print a.shape
-    # print b.shape
+    print a.shape
+    print b.shape
     # # #
     # # # 也可以强制修改shape
-    # b.shape = 4, 3
-    # print b
+    b.shape = 4, 3
+    print b
     # # # # 注：从(3,4)改为(4,3)并不是对数组进行转置，而只是改变每个轴的大小，数组元素在内存中的位置并没有改变
     # # #
     # # # 当某个轴为-1时，将根据数组元素的个数自动计算此轴的长度
-    # b.shape = 2, -1
-    # print b
-    # print b.shape
+    b.shape = 2, -1
+    print b
+    print b.shape
     # # #
     # b.shape = 3, 4
     # # # 使用reshape方法，可以创建改变了尺寸的新数组，原数组的shape保持不变
-    # c = b.reshape((4, -1))
-    # print "b = \n", b
-    # print 'c = \n', c
+    c = b.reshape((4, -1))
+    print "b = \n", b
+    print 'c = \n', c
     # #
     # # # 数组b和c共享内存，修改任意一个将影响另外一个
-    # b[0][1] = 20
-    # print "b = \n", b
-    # print "c = \n", c
+    b[0][1] = 20
+    print "b = \n", b
+    print "c = \n", c
     # # #
     # # # 数组的元素类型可以通过dtype属性获得
-    # print a.dtype
-    # print b.dtype
+    print a.dtype
+    print b.dtype
     # # #
     # # # # 可以通过dtype参数在创建时指定元素类型
-    # d = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=np.float)
-    # f = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=np.complex)
-    # print d
-    # print f
+    d = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=np.float)
+    f = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], dtype=np.complex)
+    print d
+    print f
     # # #
     # # # 如果更改元素类型，可以使用astype安全的转换
-    # f = d.astype(np.int)
-    # print f
+    f = d.astype(np.int)
+    print f
     # #
     # # # 但不要强制仅修改元素类型，如下面这句，将会以int来解释单精度float类型
-    # d.dtype = np.int
-    # print d
+    d.dtype = np.int
+    print d
     #
     # 2.使用函数创建
     # 如果生成一定规则的数据，可以使用NumPy提供的专门函数
     # arange函数类似于python的range函数：指定起始值、终止值和步长来创建数组
     # 和Python的range类似，arange同样不包括终值；但arange可以生成浮点类型，而range只能是整数类型
-    # a = np.arange(1, 10, 0.5)
-    # print a
+    a = np.arange(1, 10, 0.5)
+    print a
     # # #
     # # # linspace函数通过指定起始值、终止值和元素个数来创建数组，缺省包括终止值
-    # b = np.linspace(1, 10, 10)
-    # print 'b = ', b
+    b = np.linspace(1, 10, 10)
+    print 'b = ', b
     # # #
     # # 可以通过endpoint关键字指定是否包括终值
-    # c = np.linspace(1, 10, 10, endpoint=False)
-    # print 'c = ', c
+    c = np.linspace(1, 10, 10, endpoint=False)
+    print 'c = ', c
     # # #
     # # 和linspace类似，logspace可以创建等比数列
     # # 下面函数创建起始值为10^1，终止值为10^2，有20个数的等比数列
-     d = np.logspace(1, 2, 10, endpoint=True)
-     print d
-
-     # logsapce 的参数，从左到右依次， 起始值，终止值，等份数，底数，如不设置为默认为0， 是否包含尾边界
-     e = np.logspace(1,2,100,base = 2, endpoint=True)
-     print e
+    d = np.logspace(1, 2, 10, endpoint=True)
+    print d
+    #
+    #  # logsapce 的参数，从左到右依次， 起始值，终止值，等份数，底数，如不设置为默认为0， 是否包含尾边界
+    e = np.logspace(1,2,100,base = 2, endpoint=True)
+    print e
     # # #
     # # # 下面创建起始值为2^0，终止值为2^10(包括)，有10个数的等比数列
-    # f = np.logspace(0, 10, 11, endpoint=True, base=2)
-    # print f
+    f = np.logspace(0, 10, 10, endpoint=True, base=2)
+    print f
     # # #
     # # # 使用 frombuffer, fromstring, fromfile等函数可以从字节序列创建数组
-    # s = 'abcd'
-    # g = np.fromstring(s, dtype=np.int8)
-    # print g
+    s = 'abcd'
+    g = np.fromstring(s, dtype=np.int8)
+    print g
     # #
     # 3.存取
     # 3.1常规办法：数组元素的存取方法和Python的标准方法相同
-    # a = np.arange(10)
-    # print a
+    a = np.arange(10)
+    print a
     # # # 获取某个元素
-    # print a[3]
+    print a[3]
     # # # # 切片[3,6)，左闭右开
-    # print a[3:6]
+    print a[3:6]
     # # # # 省略开始下标，表示从0开始
-    # print a[:5]
+    print a[:5]
     # # # # 下标为负表示从后向前数
-    # print a[3:]
+    print a[3:]
     # # # # 步长为2
-    # print a[1:9:2]
+    print a[1:9:2]
     # # # # 步长为-1，即翻转
-    # print a[::-1]
+    print a[::-1]
     # # # # 切片数据是原数组的一个视图，与原数组共享内容空间，可以直接修改元素值
-    # a[1:4] = 10, 20, 30
-    # print a
+    a[1:4] = 10, 20, 30
+    print a
     # # # # 因此，在实践中，切实注意原始数据是否被破坏，如：
-    # b = a[2:5]
-    # b[0] = 200
-    # print a
+    b = a[2:5]
+    b[0] = 200
+    print a
     #
     # # 3.2 整数/布尔数组存取
     # # 3.2.1
     # 根据整数数组存取：当使用整数序列对数组元素进行存取时，
     # 将使用整数序列中的每个元素作为下标，整数序列可以是列表(list)或者数组(ndarray)。
     # 使用整数序列作为下标获得的数组不和原始数组共享数据空间。
-    # a = np.logspace(0, 9, 10, base=2)
-    # print a
-    # i = np.arange(0, 10, 2)
-    # print i
+    a = np.logspace(0, 9, 10, base=2)
+    print 'np.logspace(0, 9, 10, base=2) is:', a
+    i = np.arange(0, 10, 2)
+    print 'np.arange(0, 10, 2) is', i
     # # # # 利用i取a中的元素
-    # b = a[i]
-    # print b
+    b = a[i]
+    print b
     # # # b的元素更改，a中元素不受影响
-    # b[2] = 1.6
-    # print b
-    # print a
+    b[2] = 1.6
+    print b
+    print a
 
     # # 3.2.2
     # 使用布尔数组i作为下标存取数组a中的元素：返回数组a中所有在数组b中对应下标为True的元素
     # # 生成10个满足[0,1)中均匀分布的随机数
-    # a = np.random.rand(10)
-    # print a
+    a = np.random.rand(10)
+    print a
     # # # 大于0.5的元素索引
-    # print a > 0.5
+    print a > 0.5
     # # # # 大于0.5的元素
-    # b = a[a > 0.5]
-    # print b
+    b = a[a > 0.5]
+    print b
     # # # # 将原数组中大于0.5的元素截取成0.5
-    # a[a > 0.5] = 0.5
-    # print a
+    a[a > 0.5] = 0.5
+    print a
     # # # # b不受影响
-    # print b
+    print b
 
     # 3.3 二维数组的切片
     # [[ 0  1  2  3  4  5]
@@ -208,21 +235,21 @@ if __name__ == "__main__":
     #  [30 31 32 33 34 35]
     #  [40 41 42 43 44 45]
     #  [50 51 52 53 54 55]]
-    # a = np.arange(0, 60, 10)    # 行向量
-    # print 'a = ', a
-    # b = a.reshape((-1, 1))      # 转换成列向量
-    # print b
-    # c = np.arange(6)
-    # print c
-    # f = b + c   # 行 + 列
-    # print f
+    a = np.arange(0, 60, 10)    # 行向量
+    print 'a = ', a
+    b = a.reshape((-1, 1))      # 转换成列向量
+    print b
+    c = np.arange(6)
+    print c
+    f = b + c   # 行 + 列
+    print f
     # # 合并上述代码：
-    # a = np.arange(0, 60, 10).reshape((-1, 1)) + np.arange(6)
-    # print a
+    a = np.arange(0, 60, 10).reshape((-1, 1)) + np.arange(6)
+    print a
     # # 二维数组的切片
-    # print a[[0, 1, 2], [2 ,3, 4]]
-    # print a[4, [2, 3, 4]]
-    # print a[4:, [2, 3, 4]]
+    print a[[0, 1, 2], [2 ,3, 4]]
+    print a[4, [2, 3, 4]]
+    print a[4:, [2, 3, 4]]
     # i = np.array([True, False, True, False, False, True])
     # print a[i]
     # print a[i, 3]
