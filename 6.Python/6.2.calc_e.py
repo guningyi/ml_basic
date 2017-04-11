@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 
 def calc_e_small(x):
     n = 10
-    f = np.arange(1, n+1).cumprod()
+    f = np.arange(1, n+1).cumprod() # cumprod() 累积乘
     b = np.array([x]*n).cumprod()
-    return np.sum(b / f) + 1
+    return np.sum(b / f) + 1  # 不带axis参数，表示按列相加
 
 
 def calc_e(x):
@@ -32,9 +32,9 @@ def calc_e(x):
 if __name__ == "__main__":
     t1 = np.linspace(-2, 0, 10, endpoint=False)
     t2 = np.linspace(0, 3, 20)
-    t = np.concatenate((t1, t2))
+    t = np.concatenate((t1, t2)) # 数组拼接
     print t     # 横轴数据
-    y = np.empty_like(t)
+    y = np.empty_like(t) # 依据给定数组t的形状和类型返回一个新的空的数组
     for i, x in enumerate(t):
         y[i] = calc_e(x)
         print 'e^', x, ' = ', y[i], '(近似值)\t', math.exp(x), '(真实值)'
