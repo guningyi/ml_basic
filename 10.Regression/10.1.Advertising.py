@@ -6,7 +6,8 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
+from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LinearRegression
 from pprint import pprint
 
@@ -52,8 +53,10 @@ if __name__ == "__main__":
     print x
     print y
 
-    mpl.rcParams['font.sans-serif'] = [u'simHei']
-    mpl.rcParams['axes.unicode_minus'] = False
+    # rc配置变量称为matplotlib.rcParams
+    # 可以修改其默认的配置变量
+    mpl.rcParams['font.sans-serif'] = [u'simHei']  # 指定默认文本
+    mpl.rcParams['axes.unicode_minus'] = False     # 解决保存图像是负号'-'显示为方块的问题
 
     # # 绘制1
     # plt.plot(data['TV'], y, 'ro', label='TV')
@@ -64,8 +67,8 @@ if __name__ == "__main__":
     # plt.show()
     # #
     # 绘制2
-    plt.figure(figsize=(9,12))
-    plt.subplot(311)
+    plt.figure(figsize=(9,12)) # 参数9,12指定高度和宽度，默认的dpi是80象素，即宽度是9*80象素,长度12*80象素
+    plt.subplot(311) #绘制子图
     plt.plot(data['TV'], y, 'ro')
     plt.title('TV')
     plt.grid()
@@ -77,11 +80,16 @@ if __name__ == "__main__":
     plt.plot(data['Newspaper'], y, 'b*')
     plt.title('Newspaper')
     plt.grid()
-    plt.tight_layout()
+    plt.tight_layout() # 紧凑显示图片，居中显示
     plt.show()
 
+    # train_data：所要划分的样本特征集
+    # train_target：所要划分的样本结果
+    # test_size：样本占比，如果是整数的话就是样本的数量
+    # random_state：是随机数的种子。
     x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
-    # print x_train, y_train
+    print 'x_train:\n',x_train
+    print 'y_train:\n',y_train
     linreg = LinearRegression()
     model = linreg.fit(x_train, y_train)
     print model
