@@ -83,15 +83,18 @@ if __name__ == "__main__":
     plt.tight_layout() # 紧凑显示图片，居中显示
     plt.show()
 
-    # train_data：所要划分的样本特征集
-    # train_target：所要划分的样本结果
-    # test_size：样本占比，如果是整数的话就是样本的数量
+    # 功能是从样本中随机的按比例选取train data和test data
+    # x：所要划分的样本特征集
+    # y：所要划分的样本结果
+    # train_size：样本占比，如果是整数的话就是样本的数量
     # random_state：是随机数的种子。
     x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
     print 'x_train:\n',x_train
     print 'y_train:\n',y_train
     linreg = LinearRegression()  #sklearn 实例化
-    model = linreg.fit(x_train, y_train) #使用fit函数进行回归计算，参数:x_train,y_train以矩阵的方式传入，而第三个参数sample_weight则是每条测试数据的权重，同样以array格式传入。
+    # 使用fit函数进行回归计算，参数:x_train,y_train以矩阵的方式传入，而第三个参数sample_weight则是每条测试数据的权重，同样以array格式传入。
+    # 得到线性回归模型
+    model = linreg.fit(x_train, y_train)
     print model
     # # LinearRegression将方程分为两个部分存放，
     # # coef_存放回归系数，
@@ -101,6 +104,7 @@ if __name__ == "__main__":
     print linreg.intercept_
 
     # # 预测方法，将返回预测值y_hat
+    # # 使用测试集去得到预测值
     y_hat = linreg.predict(np.array(x_test))
 
     # 我们需要评估我们的模型的好坏程度，对于线性回归来说，我们一般用均方差（Mean SquaredError, MSE）
@@ -109,6 +113,7 @@ if __name__ == "__main__":
     rmse = np.sqrt(mse)  # Root Mean Squared Error 均方根差
     print mse, rmse
 
+    # # 显示图像
     t = np.arange(len(x_test))
     plt.plot(t, y_test, 'r-', linewidth=2, label=u'真实数据')
     plt.plot(t, y_hat, 'g-', linewidth=2, label=u'预测数据')
