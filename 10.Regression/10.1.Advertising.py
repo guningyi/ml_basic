@@ -90,15 +90,23 @@ if __name__ == "__main__":
     x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
     print 'x_train:\n',x_train
     print 'y_train:\n',y_train
-    linreg = LinearRegression()
-    model = linreg.fit(x_train, y_train)
+    linreg = LinearRegression()  #sklearn 实例化
+    model = linreg.fit(x_train, y_train) #使用fit函数进行回归计算，参数:x_train,y_train以矩阵的方式传入，而第三个参数sample_weight则是每条测试数据的权重，同样以array格式传入。
     print model
+    # # LinearRegression将方程分为两个部分存放，
+    # # coef_存放回归系数，
+    # # intercept_则存放截距，
+    # # 因此要查看方程，就是查看这两个变量的取值。
     print linreg.coef_
     print linreg.intercept_
 
+    # # 预测方法，将返回预测值y_hat
     y_hat = linreg.predict(np.array(x_test))
-    mse = np.average((y_hat - np.array(y_test)) ** 2)  # Mean Squared Error
-    rmse = np.sqrt(mse)  # Root Mean Squared Error
+
+    # 我们需要评估我们的模型的好坏程度，对于线性回归来说，我们一般用均方差（Mean SquaredError, MSE）
+    # 或者均方根差(Root Mean SquaredError, RMSE)在测试集上的表现来评价模型的好坏。
+    mse = np.average((y_hat - np.array(y_test)) ** 2)  # Mean Squared Error 均方差
+    rmse = np.sqrt(mse)  # Root Mean Squared Error 均方根差
     print mse, rmse
 
     t = np.arange(len(x_test))
