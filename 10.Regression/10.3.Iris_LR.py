@@ -71,7 +71,7 @@ if __name__ == "__main__":
     y = y.astype(np.int)
     # print 'x = \n', x
     # print 'y = \n', y
-    # 仅使用前两列特征
+    # 仅使用前两列特征,这里指用前两列数据作为x y 的数据在二维面上画点，再将他们分类。
     x = x[:, :2]
     lr = Pipeline([('sc', StandardScaler()),
                    ('clf', LogisticRegression()) ])
