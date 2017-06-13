@@ -42,6 +42,9 @@ if __name__ == "__main__":
     x.shape = -1, 1
     y.shape = -1, 1
 
+    # RidgeCV 中的参数alphas表示正则化的强度，这个数组必须是正的浮点数，
+    # 它的作用是：1 改善问题的条件，2 减少估计结果与真实值的方差。
+    # 更大的值对应更强的正则化
     models = [Pipeline([
         ('poly', PolynomialFeatures()),
         ('linear', LinearRegression(fit_intercept=False))]),
@@ -78,6 +81,7 @@ if __name__ == "__main__":
         plt.plot(x, y, 'ro', ms=10, zorder=N)
         for i, d in enumerate(d_pool):
             model.set_params(poly__degree=d)
+            # y.ravel() 展平成一维数组
             model.fit(x, y.ravel())
             lin = model.get_params('linear')['linear']
             output = u'%s：%d阶，系数为：' % (titles[t], d)
