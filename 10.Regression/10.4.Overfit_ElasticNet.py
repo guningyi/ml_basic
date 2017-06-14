@@ -27,6 +27,7 @@ def xss(y, y_hat):
     # tss = np.var(y)
     # rss = np.average((y_hat - y) ** 2)
     # r2 = 1 - rss / tss
+    #np.corrcoef()是求取相关系数
     corr_coef = np.corrcoef(y, y_hat)[0, 1]
     return r2, corr_coef
 
@@ -92,6 +93,7 @@ if __name__ == "__main__":
                 idx = output.find(u'系数')
                 output = output[:idx] + (u'l1_ratio=%.6f，' % lin.l1_ratio_) + output[idx:]
             print output, lin.coef_.ravel()
+            # 测试集合
             x_hat = np.linspace(x.min(), x.max(), num=100)
             x_hat.shape = -1, 1
             y_hat = model.predict(x_hat)
