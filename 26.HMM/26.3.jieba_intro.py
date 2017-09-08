@@ -9,7 +9,7 @@ import jieba.posseg
 if __name__ == "__main__":
     reload(sys)
     sys.setdefaultencoding('utf-8')
-    f = open('.\\24.novel.txt')
+    f = open('.\\26.novel.txt')
     str = f.read().decode('utf-8')
     f.close()
 
