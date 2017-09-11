@@ -125,6 +125,7 @@ def baum_welch(pi, A, B):
     f.close()
     T = len(sentence)
     alpha = [[0 for i in range(4)] for t in range(T)]
+    print alpha
     beta = [[0 for i in range(4)] for t in range(T)]
     gamma = [[0 for i in range(4)] for t in range(T)]
     ksi = [[[0 for j in range(4)] for i in range(4)] for t in range(T-1)]
