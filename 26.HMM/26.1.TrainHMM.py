@@ -148,9 +148,9 @@ def baum_welch(pi, A, B):
 def mle():  # 0B/1M/2E/3S
     pi = [0] * 4   # npi[i]：i状态的个数
     a = [[0] * 4 for x in range(4)]     # na[i][j]：从i状态到j状态的转移个数
-    b = [[0]* 65536 for x in range(4)]  # nb[i][o]：从i状态到o字符的个数
+    b = [[0]* 65536 for x in range(4)]  # nb[i][o]：从i(某个隐状态)到o（某个字符）的个数, 4行,65536列.
     f = file(".\\26.pku_training.utf8")
-    data = f.read()[3:].decode('utf-8')
+    data = f.read()[3:].decode('utf-8') # 因为这个文件之前在windows下被打开过，所以需要作一些处理和转换，变成UNIX的编码形式。
     f.close()
     tokens = data.split('  ')
     # 增加英文词训练集
@@ -163,6 +163,7 @@ def mle():  # 0B/1M/2E/3S
     last_q = 2
     iii = 0
     old_progress = 0
+    # 这里的k只是为了输出进度所用，
     print '进度：'
     for k, token in enumerate(tokens):
         progress = float(k) / float(len(tokens))
@@ -171,12 +172,12 @@ def mle():  # 0B/1M/2E/3S
             old_progress = progress
         token = token.strip()
         n = len(token)
-        if n <= 0:
+        if n <= 0:  #如果词的长度小于等于0，那这个词就是个空格，直接忽略掉。
             continue
-        if n == 1:
-            pi[3] += 1
+        if n == 1: #词的长度为1，单字成词
+            pi[3] += 1  #单字的数量增加1
             a[last_q][3] += 1   # 上一个词的结束(last_q)到当前状态(3S)
-            b[3][ord(token[0])] += 1
+            b[3][ord(token[0])] += 1   #?
             last_q = 3
             continue
         # 初始向量
