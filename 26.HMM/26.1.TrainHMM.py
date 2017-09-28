@@ -147,8 +147,8 @@ def baum_welch(pi, A, B):
 
 def mle():  # 0B/1M/2E/3S
     pi = [0] * 4   # npi[i]：i状态的个数
-    a = [[0] * 4 for x in range(4)]     # na[i][j]：从i状态到j状态的转移个数
-    b = [[0]* 65536 for x in range(4)]  # nb[i][o]：从i(某个隐状态)到o（某个字符）的个数, 4行,65536列.
+    a = [[0] * 4 for x in range(4)]     # na[i][j]：从i状态到j状态的转移个数. a~转移矩阵
+    b = [[0]* 65536 for x in range(4)]  # nb[i][o]：从i(某个隐状态)到o（某个字符）的个数, 4行,65536列. b~发射矩阵
     f = file(".\\26.pku_training.utf8")
     data = f.read()[3:].decode('utf-8') # 因为这个文件之前在windows下被打开过，所以需要作一些处理和转换，变成UNIX的编码形式。
     f.close()
@@ -177,22 +177,22 @@ def mle():  # 0B/1M/2E/3S
         if n == 1: #词的长度为1，单字成词
             pi[3] += 1  #单字的数量增加1
             a[last_q][3] += 1   # 上一个词的结束(last_q)到当前状态(3S)
-            b[3][ord(token[0])] += 1   #?
+            b[3][ord(token[0])] += 1   # 从b[3]隐状态到token[0]这个字符的个数
             last_q = 3
             continue
         # 初始向量
         pi[0] += 1
         pi[2] += 1
-        pi[1] += (n-2)
+        pi[1] += (n-2) # pi[1]为什么是加(n-2)?
         # 转移矩阵
         a[last_q][0] += 1
         last_q = 2
         if n == 2:
             a[0][2] += 1
         else:
-            a[0][1] += 1
-            a[1][1] += (n-3)
-            a[1][2] += 1
+            a[0][1] += 1  # a[0][1] 从start->middle
+            a[1][1] += (n-3) # a[1][1] middle->middle
+            a[1][2] += 1  # a[1][2] middle -> end
         # 发射矩阵
         b[0][ord(token[0])] += 1
         b[2][ord(token[n-1])] += 1
