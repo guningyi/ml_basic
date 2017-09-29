@@ -170,38 +170,39 @@ def mle():  # 0B/1M/2E/3S
         if progress > old_progress + 0.1:
             print '%.3f%%' % (progress * 100)
             old_progress = progress
-        token = token.strip()
+        token = token.strip() #过滤掉回车符号
         n = len(token)
         if n <= 0:  #如果词的长度小于等于0，那这个词就是个空格，直接忽略掉。
             continue
         if n == 1: #词的长度为1，单字成词
-            pi[3] += 1  #单字的数量增加1
-            a[last_q][3] += 1   # 上一个词的结束(last_q)到当前状态(3S)
-            b[3][ord(token[0])] += 1   # 从b[3]隐状态到token[0]这个字符的个数
-            last_q = 3
+            pi[3] += 1  #单字出现的次数增加1
+            a[last_q][3] += 1   # 上一个词的结束(last_q)到当前状态(3)出现的次数增加一，相当于在转移矩阵a中某个位置更新值，作+1操作
+            b[3][ord(token[0])] += 1   # 从b[3]隐状态到token[0]这个字符的次数增加一
+            last_q = 3 # 对于下一次的last_q而言，它的值是3。 也就是说：当下一次计算时向前看，其前一次的last_q是3
             continue
         # 初始向量
-        pi[0] += 1
-        pi[2] += 1
-        pi[1] += (n-2) # pi[1]为什么是加(n-2)?
+        # 假如不是单字成词，那它必然有begin ,end, 有没有middle暂且不说。
+        pi[0] += 1 # begin 的次数加1
+        pi[2] += 1 # end 的次数加1
+        pi[1] += (n-2) # middle 的次数暂且定位为 (n-2)， 随着循环的进行，会不断更新这个。
         # 转移矩阵
-        a[last_q][0] += 1
-        last_q = 2
+        a[last_q][0] += 1 #上一个状态(隐变量)转移到0(起始位置 begin)的次数加1
+        last_q = 2 # 对于下一次计算来说，last_q 就是2，
         if n == 2:
-            a[0][2] += 1
+            a[0][2] += 1 # 假如词长为2 ，那么转移矩阵就是 begin -> end. a[0][2]加1
         else:
-            a[0][1] += 1  # a[0][1] 从start->middle
-            a[1][1] += (n-3) # a[1][1] middle->middle
-            a[1][2] += 1  # a[1][2] middle -> end
+            a[0][1] += 1        # a[0][1] 从begin -> middle
+            a[1][1] += (n-3)    # a[1][1] middle -> middle ~ 若干个 middle -> middle
+            a[1][2] += 1        # a[1][2] middle -> end
         # 发射矩阵
-        b[0][ord(token[0])] += 1
-        b[2][ord(token[n-1])] += 1
+        b[0][ord(token[0])] += 1 # 从b[0]隐状态到token[0]这个字符的次数加1 token[0]是首字符~begin
+        b[2][ord(token[n-1])] += 1  # 从b[2]隐状态到token[n-1]这个字符的次数加1 token[n-1]是尾字符~end
         for i in range(1, n-1):
-            b[1][ord(token[i])] += 1
+            b[1][ord(token[i])] += 1  # 从b[1]隐状态到token[i], i~[1, n-1]这些字符的次数分别加1 token[i] 是若干个中间字符，次数分别加1
     # 正则化
     log_normalize(pi)
     for i in range(4):
-        log_normalize(a[i])
+        log_normalize(a[i])  #按行正则化
         log_normalize(b[i])
     return [pi, a, b]
 
@@ -229,5 +230,6 @@ def save_parameter(pi, A, B):
 
 if __name__ == "__main__":
     pi, A, B = mle()
+    print A
     save_parameter(pi, A, B)
     print "训练完成..."

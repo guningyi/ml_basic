@@ -28,7 +28,9 @@ if __name__ == "__main__":
     amount = amount[1:]                 # 成交额
     amplitude_price = amplitude_price[1:]   # 每日振幅
     sample = np.column_stack((diff_price, volumn, amount, amplitude_price))    # 观测值
-    n = 5
+    n = 5  # 设置5个隐状态
+    # convariance_type(协方差类型) full：是指在每个马尔可夫隐含状态下，可观察态向量使用完全协方差矩阵。对应的协方差矩阵里面的元素都是不为零。
+    # n_components 隐状态个数
     model = hmm.GaussianHMM(n_components=n, covariance_type='full')
     model.fit(sample)
     y = model.predict_proba(sample)
