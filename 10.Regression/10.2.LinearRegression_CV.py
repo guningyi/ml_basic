@@ -40,14 +40,18 @@ if __name__ == "__main__":
     # GridSearchCV通过交叉验证对参数空间进行求解，寻找最佳的参数。
     # param_grid就是我们要交叉验证的参数
     lasso_model = GridSearchCV(model, param_grid={'alpha': alpha_can}, cv=5)
+    # 用训练集数据学习(训练)
     lasso_model.fit(x_train, y_train)
     print '超参数：\n', lasso_model.best_params_
 
+    # 用测试集数据预测
     y_hat = lasso_model.predict(np.array(x_test))
     print lasso_model.score(x_test, y_test)
 
     # # 评估模型的优劣
+    # 损失函数 1:平方和损失
     mse = np.average((y_hat - np.array(y_test)) ** 2)  # Mean Squared Error  1/n*∑(y_hat-y_test)^2
+    # 损失函数 2
     rmse = np.sqrt(mse)  # Root Mean Squared Error  √(1/n*∑(y_hat-y_test)^2)
     print mse, rmse
 
