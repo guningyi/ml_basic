@@ -63,18 +63,43 @@ if __name__ == "__main__":
     #                   converters={4: iris_type})
 
     data = pd.read_csv('10.iris.data', header=None)
+
+    #           花萼长度  花萼宽度   花瓣长度   花瓣宽度    类别
+    #             0        1         2        3          4
+    #      0     5.1      3.5       1.4      0.2         0
+    #      1     4.9      3.0       1.4      0.2         0
+    #      2     4.7      3.2       1.3      0.2         0
+    #      3     4.6      3.1       1.5      0.2         0
+    #
+    #
+    #  下面这段处理是将原始数据中的鸢尾花的三个类别从文字转变为数字 0,1,2
+    #  每个样本包含四个特征和一个输出(Xi1,Xi2,Xi3,Xi4,Yi), i~ 0-149.
+    #  一共150个样本
+
     iris_types = data[4].unique()
     for i, type in enumerate(iris_types):
         data.set_value(data[4] == type, 4, i)
+
+    # 将输入(Xi1,Xi2,Xi3,Xi4)放入x
+    # 将输出(Yi)放入y
     x, y = np.split(data.values, (4,), axis=1)
+
+    #?
     x = x.astype(np.float)
     y = y.astype(np.int)
     # print 'x = \n', x
     # print 'y = \n', y
     # 仅使用前两列特征,这里指用前两列数据作为x y 的数据在二维面上画点，再将他们分类。
     x = x[:, :2]
+
+    # 使用管道技术，transformer是标准化， 最后的estimator是LogisticRegression
     lr = Pipeline([('sc', StandardScaler()),
                    ('clf', LogisticRegression()) ])
+
+    # 将花萼长度，花萼宽度放进去进行拟合，没有使用花瓣的长度和宽度，这是因为：
+    #     不需要将所有的特征都放进模型进行训练，减少特征的数量、降纬的目的在于
+    #     1 使模型泛化能力更强，减少过拟合
+    #     2 增强对特征和特征值之间的理解
     lr.fit(x, y.ravel())
     y_hat = lr.predict(x)
     y_hat_prob = lr.predict_proba(x)
