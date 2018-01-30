@@ -36,6 +36,7 @@ def load_data(file_name, is_train):
     # 年龄：使用均值代替缺失值
     # mean_age = data['Age'].dropna().mean()
     # data.loc[(data.Age.isnull()), 'Age'] = mean_age
+    # print mean_age
     if is_train:
         # 年龄：使用随机森林预测年龄缺失值
         print '随机森林预测缺失年龄：--start--'
